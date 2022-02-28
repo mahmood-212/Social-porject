@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+<title>{% block title %}  Sinup {% endblock%}</title>
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block body_blcok %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" value="Login">
+    </form>
+</div>
+{% endblock %}

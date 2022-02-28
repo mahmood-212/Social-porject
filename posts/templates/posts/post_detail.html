@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends 'posts/post_base.html' %}
+{% load bootstrap5 %}
+<title>{% block title %}  Document {% endblock%}</title> 
+
+{% block body_blcok %}
+    {% block post_content %}
+        <div  class="col-md-8">
+            {% include "posts/_post.html" %}
+        </div>
+    {% endblock %}
+{% endblock %}

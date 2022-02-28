@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'posts/post_base.html' %}
+{% load bootstrap5 %}
+<title>{% block title %}  Document {% endblock%}</title> 
+
+{% block body_blcok %}
+    {% block prepost %}
+
+    <h4>Create anew Post</h4>
+    <form action="{% url 'posts:create'%}" method="POST" id="postForm">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-lg btn-primary" value="Add Post">
+    </form>
+
+    {% endblock %}
+{% endblock %}
