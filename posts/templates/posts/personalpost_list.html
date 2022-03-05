@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% extends 'posts/post_base.html' %}
+{% load bootstrap5 %}
+<title>{% block title %}  Document {% endblock%}</title> 
+
+{% block body_blcok %}
+<h1>I'm from Personal post list</h1>
+<div class="centerstage">
+    {% for post in personalpost_list %}
+    <div class="contaner-fluid post">
+        <h1><a href="{% url 'posts:post_detail' pk=post.pk %}">{{post.title}}</a></h1>
+
+        <div class="date">
+            <p>Date: <a href="">{{post.create_date|date:'d M Y'}}</a></p>
+        </div>
+
+        <div class="comment">
+            <p>Comments: <a href="#">{{post.title}}</a></p>
+            
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {% for post in personalpost_list %}
+                <!-- Post preview-->
+                <div class="post-preview">
+
+                    <a href="{% url 'posts:post_detail' pk=post.pk %}">
+
+                        <h2 class="post-title">{{post.title}}</h2>
+                        <h3 class="post-subtitle">{{post.title}}</h3>
+                    </a>
+                    <p class="post-meta">
+                        Posted by
+                        <a href="#!">{{post.author}}</a>
+                        on {{post.create_date|date:'d M Y'}}
+                    </p>
+                </div>
+
+                <!-- Divider-->
+                <hr class="my-4" />
+
+            {% endfor %}
+
+                <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

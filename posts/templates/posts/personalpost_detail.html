@@ -1,0 +1,45 @@
+{% extends 'posts/post_base.html' %}
+{% load bootstrap5 %}
+{%load static %}
+<title>{% block title %}  Document {% endblock%}</title> 
+
+{% block body_blcok %}
+<!-- <h1>I'm from Personal post details</h1>
+<div class="centerstage">
+    
+    <div class="contaner-fluid post">
+        <h1><a href="{% url 'posts:post_detail' pk=personalpost.pk %}">{{personalpost.title}}</a></h1>
+
+        <h2>{{personalpost.text}}</h2>
+
+        <div class="date">
+            <p>Date: <a href="">{{personalpost.create_date|date:'d M Y'}}</a></p>
+        </div>
+
+        <div class="comment">
+            <p>Comments: <a href="#">{{personalpost.title}}</a></p>
+            
+        </div>
+        <a href="{%url 'posts:deletepost' pk=personalpost.pk %}">Delete</a>
+    </div>
+    
+</div> -->
+
+<div class="container container-listdetail">
+    <img class="user-image" src="{% static 'simplesocial/image/20200102_022607.jpg'%}" alt="">
+    <a class="a-listdetail" href="">@{{personalpost.author}}</a>
+    <p class="p-listdetail">{{personalpost.create_date|date:'d M Y'}}</p>
+    
+    <h1 class="topic-header"><a href="{% url 'posts:post_detail' pk=personalpost.pk %}">{{personalpost.title}}</a></h1>
+
+    <p>{{personalpost.text}}</p>
+    
+</div>
+<div class="container container-relatedlist">
+    <h3>list  of topic:</h3>
+    <hr>
+    {% for post in personalpost_list %}
+    <p><a href="{% url 'posts:post_detail' pk=post.pk %}">{{post.title}}</a></p>
+    {% endfor %}
+</div>
+{% endblock %}

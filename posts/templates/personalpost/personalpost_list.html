@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends 'posts/post_base.html' %}
+{% load bootstrap5 %}
+<title>{% block title %}  Document {% endblock%}</title> 
+
+{% block body_blcok %}
+<h1>I'm from Personal post list</h1>
+<div class="centerstage">
+    {% for post in personalpost_list %}
+    <div class="contaner-fluid post">
+        <h1><a href="{% url 'posts:personalpost' pk=personalpost.pk%}">{{post.title}}</a></h1>
+
+        <div class="date">
+            <p>Date: <a href="#">{{post.create_date|date:'d M Y'}}</a></p>
+        </div>
+
+        <div class="comment">
+            <p>Comments: <a href="#">{{post.title}}</a></p>
+            
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

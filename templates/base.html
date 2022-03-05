@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load bootstrap5 %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,15 +12,24 @@
 
     <!-- ICON OF BOOTSTRAP -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- ICON OF SITE ICON8 -->
+    
 
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Ubuntu&display=swap" rel="stylesheet">
 
+    <!-- CSS  -->
+    <!-- CSS LINK MESTER.CSS -->
+    <link rel="stylesheet" href="{% static 'simplesocial/css/master.css' %}">
+    <!-- CSS LINK MYEDIT.CSS  -->
+    <link rel="stylesheet" href="{% static 'simplesocial/css/myedit.css' %}">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light techfont costom-navbar mynav" role="navigation", id="navbar">
+  <!-- OLD VERSION OF NAVBAR  -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light techfont costom-navbar mynav" role="navigation", id="navbar">
         <div class="container">
             <a class="navbar-barand mynav" href="{% url 'home' %}">Start Social</a>
 
@@ -46,9 +56,106 @@
 
         </div>
 
-    </nav>
+    </nav> -->
+
+    <!-- NEW VERSION OF NAVBAR  -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">BluePath</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+              
+              <li class="nav-item">
+                  <!-- Home -->
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="bi bi-house"></i></a>
+              </li>
+              <li class="nav-item">
+                  <!-- ADD POST -->
+                <a class="nav-link" href="{% url 'posts:createpost' %}"><i class="bi bi-pencil-square"></i></a>
+              </li>
+              <li class="nav-item">
+                  <!-- LIST  -->
+                <a class="nav-link" href="{% url 'posts:personalpost' %}"><i class="bi bi-card-list"></i></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!-- GROUPS  -->
+                    <i class="bi bi-people-fill"> groups</i>
+                  
+                </a>
+                <!-- DROPMENU  -->
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="{% url 'posts:create' %}">Create Group</a></li>
+                  <li><a class="dropdown-item" href="{% url 'groups:all' %}">Groups</a></li>
+                  <li><a class="dropdown-item" href="{% url 'groups:create' %}">Add Post Group</a></li>
+                </ul>
+              </li>
+            </ul>
+
+            <!-- RIGHT NAVBAR -->
+            <!-- DROPDOWN FRO RIGHT SIDE  -->
+            <ul class='nav navbar-nav navbar-right ms-auto ' >
+              <li class="nav-item">
+                <!-- ADD POST -->
+              <a class="nav-link" href="{% url 'accounts:logout' %}"><i class="bi bi-box-arrow-left"></i></a>
+            </li>
+            </ul>
+
+            <!-- IF USER NOT LOGIN  -->
+            {% else %}
+            <ul class="navbar-nav">
+              
+              <li class="nav-item">
+                  <!-- Home -->
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="bi bi-house"></i></a>
+              </li>
+              
+              <li class="nav-item">
+                  <!-- LIST  -->
+                <a class="nav-link" href="{% url 'posts:personalpost' %}"><i class="bi bi-card-list"></i></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!-- GROUPS  -->
+                    <i class="bi bi-people-fill"> groups</i>
+                  
+                </a>
+                <!-- DROPMENU  -->
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="{% url 'posts:create' %}">Create Group</a></li>
+                  <li><a class="dropdown-item" href="{% url 'groups:all' %}">Groups</a></li>
+                  <li><a class="dropdown-item" href="{% url 'groups:create' %}">Add Post Group</a></li>
+                </ul>
+              </li>
+            </ul>
+
+            <!-- RIGHT NAVBAR -->
+            <!-- DROPDOWN FRO RIGHT SIDE  -->
+            <ul class='nav navbar-nav navbar-right ms-auto ' >
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-person-circle"></i>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a></li>
+                      <li><a class="dropdown-item" href="{% url 'accounts:signup' %}">Signup</a></li> 
+                    </ul>
+              </li>
+          </ul>
+
+            {% endif %}
+          </div>
+        </div>
+      </nav>
     {% block body_blcok %}
 
     {% endblock %}
+    <script src="{% static 'simplesocial/js/scripts.js'%}">
+
+    </script>
 </body>
 </html>

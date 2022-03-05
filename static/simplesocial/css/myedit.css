@@ -1,0 +1,58 @@
+.container-listdetail{
+    color: black;
+    background-color:#FAF9F6;
+    height: auto;
+    width: 800px;
+    position: relative;
+    left: 130px;
+    margin: 200px 0 100px 0;
+    text-align:start;
+    display: inline-block;
+    border-radius: 5px;
+  }
+
+  .container-relatedlist{
+    color: black;
+    background-color:#FAF9F6;
+    position: absolute;
+    right: 120px;
+    margin: 0;
+    border-radius: 5px;
+    height: auto;
+    width: 300px;
+    top: 200px;
+  }
+
+  .user-image{
+    margin: 20px 0;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 30px;
+    display: block;
+  }
+
+  .a-listdetail{
+      position: relative;
+      font-size: 1rem;
+      top: 30px;
+      margin-top: 30px;
+      
+  }
+  .p-listdetail{
+      position: relative;
+      top: 30px;
+      font-size: 1rem;
+      margin-top: 0;
+      margin-bottom: 40px;
+      display: block;
+  }
+
+  .topic-header{
+      position: relative;
+      right: 90px;
+      top: 20px;
+      display: inline;
+      
+  }

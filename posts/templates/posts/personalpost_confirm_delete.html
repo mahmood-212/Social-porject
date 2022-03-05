@@ -1,0 +1,12 @@
+{% extends 'posts/post_base.html' %}
+{% load bootstrap5 %}
+<title>{% block title %}  Document {% endblock%}</title> 
+
+{% block body_blcok %}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Delete Post">
+
+    </form>
+    <a href="{% url 'posts:post_detail' pk=personalpost.pk %}">Cancel</a>
+{% endblock %}

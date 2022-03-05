@@ -9,4 +9,10 @@ urlpatterns = [
     path('by/<str:username>/', views.UserPosts.as_view(), name='for_user'),
     path('by/<str:username>/<int:pk>/', views.PostDetail.as_view(), name='single'),
     path('delete/<int:pk>/', views.DeletePost.as_view(), name='delete'),
+
+    #personalpost model
+    path('personalpost/', views.PorsonalPostList.as_view(), name='personalpost'),
+    path('personalpost/new/', views.PersonalPostCreate.as_view(), name='createpost'),
+    path('personalpost/detail/<int:pk>/', views.PersonalPostDetail.as_view(), name='post_detail'),
+    path('personalpost/remove/<int:pk>/', views.PersonalPostDelete.as_view(), name='deletepost'),
 ]

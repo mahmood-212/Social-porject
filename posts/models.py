@@ -5,6 +5,7 @@ from groups.models import Group
 import misaka
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 User = get_user_model()
 
 # Create your models here.
@@ -36,3 +37,20 @@ class Post(models.Model):
     class Meta():
         ordering = ['-created_at']
         unique_together = ['user', 'message']
+
+class PersonalPost(models.Model):
+    author = models.ForeignKey(User, related_name='personalposts', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    create_date = models.DateTimeField(default=timezone.now)
+
+    def get_absolute_url(self):
+        return reverse('posts:post_detail', kwargs={'pk':self.pk})
+        
+
+    def __str__(self):
+        return self.title
+
+    class Meta():
+        ordering = ['-create_date']
+        # unique_together = ['author', 'title']

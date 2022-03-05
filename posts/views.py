@@ -7,11 +7,14 @@ from . import forms
 from braces.views import SelectRelatedMixin
 from django.http import Http404
 from . import models
+from django.utils import timezone
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
 # Create your views here.
 
+#what is SelectRelatedMixin:A simple mixin which allows you to specify a list or
+# tuple of foreign key fields to perform a select_related on
 class PostList(SelectRelatedMixin, generic.ListView):
     model = models.Post
     select_related = ('user', 'group')
@@ -76,3 +79,49 @@ class DeletePost(LoginRequiredMixin, SelectRelatedMixin, generic.DeleteView):
         messages.success(self.request,'Post Delete')
         return super().delete(*args, **kwargs)
 
+
+
+'''Personal Posts Here'''
+class PorsonalPostList(generic.ListView):
+    model = models.PersonalPost
+
+    def get_queryset(self):
+        return models.PersonalPost.objects.filter(create_date__lte= timezone.now()).order_by('-create_date')
+
+class PersonalPostCreate(LoginRequiredMixin, generic.CreateView):
+    model = models.PersonalPost
+    fields = ['title', 'text']
+
+    #Here I have fields call 'author' but I don't want user enter this field. here by this funtion ↓
+    # I let 'author' get 'username' by defualt 
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+class PersonalPostDetail(generic.DetailView):
+    model=models.PersonalPost
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['personalpost_list']= models.PersonalPost.objects.all()
+        return context
+    
+
+class PersonalPostDelete(LoginRequiredMixin, SelectRelatedMixin, generic.DeleteView):
+    model = models.PersonalPost
+    success_url = reverse_lazy('posts:personalpost')
+    select_related = ("author",)
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     print(f"this is queryset ************************{queryset}")
+
+    #     print(f"this is queryset filter ************************{queryset.filter(author_id=self.request.user.id)}")
+    #     return queryset.filter(author_id=self.request.user.id)
+
+    # def delete(self, *args, **kwargs):
+    #     messages.success(self.request,'Post Delete')
+    #     return super().delete(*args, **kwargs)
