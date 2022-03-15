@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
-from . import forms
+from comments.models import Comment
 from braces.views import SelectRelatedMixin
 from django.http import Http404
 from . import models
@@ -73,10 +73,13 @@ class DeletePost(LoginRequiredMixin, SelectRelatedMixin, generic.DeleteView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        print(f"is from post gorup delete {queryset.filter(user_id=self.request.user.id)} &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         return queryset.filter(user_id=self.request.user.id)
 
     def delete(self, *args, **kwargs):
         messages.success(self.request,'Post Delete')
+        print(f"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ is messages delete {messages.success(self.request,'Post Delete')}")
+        print(f"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ is the result of delet function {super().delete(*args, **kwargs)}")
         return super().delete(*args, **kwargs)
 
 
@@ -107,6 +110,10 @@ class PersonalPostDetail(generic.DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['personalpost_list']= models.PersonalPost.objects.all()
+        # context['comment_list'] = Comment.objects.all()
+        # context['comment_list'] = Comment.comments_set.order_by('-create_date')
+
+        
         return context
     
 

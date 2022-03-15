@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{%load static %}
+
+{% block title %}<title> mood </title>  {% endblock%}
+
+{% block body_blcok %}
+
+<div class="container">
+    <form class="" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form layout='inline' %}
+        
+        <input type="submit" class="btn btn-primary" value="confirm" >
+    </form>
+
+</div>
+{% endblock %}

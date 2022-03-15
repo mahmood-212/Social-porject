@@ -25,21 +25,57 @@
     
 </div> -->
 
+<!-- PersonalPost section  -->
+
 <div class="container container-listdetail">
     <img class="user-image" src="{% static 'simplesocial/image/20200102_022607.jpg'%}" alt="">
-    <a class="a-listdetail" href="">@{{personalpost.author}}</a>
-    <p class="p-listdetail">{{personalpost.create_date|date:'d M Y'}}</p>
+    <a class="a-listdetail" href="">@{{personalpost.author}} is user id{{user.id}}</a>
+    <p class="p-listdetail">{{personalpost.create_date|date:'d M Y'}} {{personalpost.author.id}}</p>
     
     <h1 class="topic-header"><a href="{% url 'posts:post_detail' pk=personalpost.pk %}">{{personalpost.title}}</a></h1>
 
     <p>{{personalpost.text}}</p>
     
+    <!-- For Delete Personalpost AND add comment  -->
+    {% if user.is_authenticated and user.id == personalpost.author.id %}
+    <a href="{%url 'posts:deletepost' pk=personalpost.pk %}">Delete</a>
+    <h1>{{personalpost.pk}}</h1>
+    <a href="{% url 'comments:addcomment' pk=personalpost.pk %}">Add comment</a>
+    <hr>
+    {% else %}
+        <a href="{%url 'posts:personalpost' %}"> <span> ↩Back </span></a>
+
+        <a href="{% url 'comments:addcomment' pk=personalpost.pk %}">Add comment</a>
+        <hr>
+    {% endif %}
+    <!-- Comment section. show all comments -->
+    <h3>comment</h3>
+    {% for comment1 in personalpost.comments.all %}
+        <img class="user-image" src="{% static 'simplesocial/image/20200102_022607.jpg'%}" alt="">
+        <a class="a-listdetail" href="">@{{comment1.comment_author}} is user id{{user.id}}</a>
+        <p class="p-listdetail">{{comment1.create_date|date:'d M Y'}} </p>
+        <br>
+        
+        <p>{{comment1.comment}}</p>
+        <!-- For Delete Comment  -->
+        {% if user.is_authenticated %}
+            {% if user.id == personalpost.author.id or user.id == comment1.comment_author.id %}
+        <a href="{% url 'comments:remove' pk=comment1.pk%}">Delete</a>
+            {% endif %}
+        {% endif %}
+        <hr>
+    {% endfor %}
 </div>
+
+
+<!-- Show All list of topics  -->
 <div class="container container-relatedlist">
     <h3>list  of topic:</h3>
     <hr>
     {% for post in personalpost_list %}
+    
     <p><a href="{% url 'posts:post_detail' pk=post.pk %}">{{post.title}}</a></p>
     {% endfor %}
+
 </div>
 {% endblock %}

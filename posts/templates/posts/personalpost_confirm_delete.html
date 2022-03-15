@@ -3,7 +3,7 @@
 <title>{% block title %}  Document {% endblock%}</title> 
 
 {% block body_blcok %}
-    <form method="POST">
+    <form class="form-label" method="POST">
         {% csrf_token %}
         <input type="submit" class="btn btn-danger" value="Delete Post">
 
